@@ -1,11 +1,13 @@
 package keijumt.epoxy
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.epoxy.Carousel
-import kotlinx.android.synthetic.main.activity_main.recycler_simple
-
+import com.airbnb.epoxy.EpoxyController
+import kotlinx.android.synthetic.main.activity_epoxy_controller.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,23 +15,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val controller = SimpleController(this)
-        recycler_simple.let { recyclerView ->
-            recyclerView.adapter = controller.adapter
-            recyclerView.layoutManager = GridLayoutManager(this, 2).also {
-                it.spanSizeLookup = controller.spanSizeLookup
-                it.recycleChildrenOnDetach = true
-            }
-            recyclerView.setItemSpacingDp(8)
+        button_epoxy_controller.setOnClickListener {
+            startActivity(Intent(this, EpoxyControllerActivity::class.java))
         }
-
-        Carousel.setDefaultGlobalSnapHelperFactory(null)
-
-        controller.update(
-            listOf("Header1", "Header1", "Header3"),
-            listOf("carousel1", "carousel2", "carousel3", "carousel4", "carousel5", "carousel7", "carousel8"),
-            listOf("CAROUSEL1", "CAROUSEL2", "CAROUSEL3", "CAROUSEL4", "CAROUSEL5", "CAROUSEL7", "CAROUSEL8"),
-            10
-        )
     }
 }
